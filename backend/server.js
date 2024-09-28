@@ -27,8 +27,8 @@ mongoose.connect("mongodb://localhost:27017/ecommerce", {
 app.use(express.json());
 
 // Routerlar için base path ekledik
-app.use("/users", userRoutes);
-app.use("/products", productRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
 app.use("/auth", authRouter);
 

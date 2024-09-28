@@ -1,16 +1,25 @@
 const express = require("express");
 const User = require("../models/user");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 
 // Kullanıcı oluşturma
 router.post("/api/users", async (req, res) => {
     try {
-        const user = new User(req.body);
-
         // Kullanıcı input doğrulaması (örnek)
         if (!req.body.email || !req.body.password) {
             return res.status(400).json({ message: "Email ve şifre gereklidir" });
         }
+
+        // E-posta kontrolü
+        const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.status(400).json({ message: "E-posta zaten kullanılıyor." });
+        }
+
+        // Şifreyi hashle
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const user = new User({ ...req.body, password: hashedPassword });
 
         await user.save();
         res.status(201).json({ message: "Kullanıcı başarıyla oluşturuldu", user });

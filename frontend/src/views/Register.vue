@@ -94,7 +94,7 @@ const handleSubmit = async () => {
     catch (error) {
         console.error("Error creating user:", error);
         alert("An error occurred while creating your account. Please try again later.");
-        console.log(error);
+        console.log(error.response);
     }
 
     name.value = "";

@@ -1,4 +1,4 @@
 <template>
+  <router-view></router-view>
+</template>
 
-  <h1>Hello World</h1>
-</template>x

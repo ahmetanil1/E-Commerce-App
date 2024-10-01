@@ -12,5 +12,6 @@ router.delete("/:id", deleteProduct);
 // update a product
 router.put("/:id", updateProduct);
 
+app.use("/products", router);
 
 module.exports = router;

@@ -76,32 +76,33 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 
+// Kayıt işlemini gerçekleştiren fonksiyon
+
 const handleSubmit = async () => {
-    if (password.value != confirmPassword.value) {
-        alert("Passwords do not match");
+    // Şifreler eşleşiyor mu kontrolü
+    if (password.value !== confirmPassword.value) {
+        alert("Passwords do not match!");
         return;
     }
-
     try {
-        const response = await axios.post("/api/users", {
+        // Backend'e POST isteği gönderme
+        const response = await axios.post('http://localhost:3000/users/register', {
             name: name.value,
             email: email.value,
-            password: password.value
+            password: password.value,
         });
-        console.log("User created:", response.data);
-        router.push("/login");
-    }
-    catch (error) {
-        console.error("Error creating user:", error);
-        alert("An error occurred while creating your account. Please try again later.");
+        console.log("User created: ", response.data);
+        router.push('/login'); // Kayıttan sonra login sayfasına yönlendirin
+    } catch (error) {
+        console.error("Registration error:", error);
+        alert("Registration failed. Please try again.");
         console.log(error.response);
     }
-
     name.value = "";
     email.value = "";
     password.value = "";
     confirmPassword.value = "";
-}
+};
 </script>
 
 <style scoped>

@@ -78,6 +78,7 @@ const confirmPassword = ref("");
 
 // Kayıt işlemini gerçekleştiren fonksiyon
 
+
 const handleSubmit = async () => {
     // Şifreler eşleşiyor mu kontrolü
     if (password.value !== confirmPassword.value) {

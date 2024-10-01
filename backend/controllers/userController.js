@@ -1,4 +1,5 @@
 const User = require("../models/UserSchema");
+const bcrypt = require("bcrypt");
 
 const getUsers = async (req, res) => {
     try {
@@ -22,9 +23,14 @@ const createUser = async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ message: "Bu kullanıcı zaten var" });
         }
-        const newUser = new User({ name, email, password });
+        const passwordHash = await bcrypt.hash(password, 10);
+        const newUser = new User({
+            name: name,
+            email: email,
+            password: passwordHash
+        })
         await newUser.save();
-        res.status(201).json(newUser);
+        res.status(201).json({ newUser });
     }
     catch (error) {
         res.status(409).json({ message: "Kullanıcı oluşturulamadı" });

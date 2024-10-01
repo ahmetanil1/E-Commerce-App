@@ -6,12 +6,11 @@ const router = express.Router();
 // get all products
 router.get("/", getProducts);
 // create a new product
-router.post("/", createProduct);
+router.post("/create-a-product", createProduct);
 // delete a product
 router.delete("/:id", deleteProduct);
 // update a product
 router.put("/:id", updateProduct);
 
-app.use("/products", router);
 
 module.exports = router;

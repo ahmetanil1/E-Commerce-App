@@ -13,7 +13,7 @@ app.use(cors({ origin: '*' })); // GELİŞTİRME ORTAMINDA BU ŞEKİLDE
 // app.use(cors({
 //     origin: "http://localhost:5173",
 //     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: false ÇEREZ YÖNETİMİ
+//     credentials: false => ÇEREZ YÖNETİMİ
 // }));
 app.use(express.json());
 

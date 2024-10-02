@@ -37,7 +37,8 @@ app.get('/auth/google', passport.authenticate('google', {
 
 // Google callback yönlendirmesi
 app.get('/auth/google/callback', passport.authenticate('google', {
-    failureRedirect: '/register' // Başarısız olursa buraya yönlendir
+    failureRedirect: '/register', // Başarısız olursa buraya yönlendir
+    successRedirect: 'http://localhost:5173/',
 }), (req, res) => {
     try {
         res.redirect('http://localhost:5173/');

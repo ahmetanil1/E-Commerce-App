@@ -79,7 +79,6 @@ const confirmPassword = ref("");
 
 const googleLogin = () => {
     window.location.href = "http://localhost:3000/auth/google";
-
 }
 const handleSubmit = async () => {
     // Şifreler eşleşiyor mu kontrolü
@@ -98,7 +97,6 @@ const handleSubmit = async () => {
         router.push('/login'); // Kayıttan sonra login sayfasına yönlendirin
     } catch (error) {
         console.error("Registration error:", error);
-        alert("Registration failed. Please try again.");
         console.log(error.response);
     }
     name.value = "";

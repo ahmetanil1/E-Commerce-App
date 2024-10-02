@@ -17,28 +17,27 @@
                 <!-- Name Input -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" id="name" placeholder="Your Name" v-model="name" class="form-control" required>
+                    <input type="text" id="name" placeholder="Your Name" v-model="name" class="form-control">
                 </div>
 
                 <!-- Email Input -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" placeholder="you@example.com" v-model="email" class="form-control"
-                        required>
+                    <input type="email" id="email" placeholder="you@example.com" v-model="email" class="form-control">
                 </div>
 
                 <!-- Password Input -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" id="password" v-model="password" placeholder="**********"
-                        class="form-control" required>
+                        class="form-control">
                 </div>
 
                 <!-- Confirm Password Input -->
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
                     <input type="password" id="confirmPassword" v-model="confirmPassword" placeholder="**********"
-                        class="form-control" required>
+                        class="form-control">
                 </div>
 
                 <!-- Register Button -->
@@ -48,10 +47,10 @@
 
                 <!-- Alternate Log In -->
                 <div class="alternate-log-in d-flex flex-column align-items-center">
-                    <button class="btn btn-danger w-100 mb-2">
+                    <button @click="googleLogin" class="btn btn-danger w-100 mb-2">
                         <i class="bi bi-google"></i> Continue with Google
                     </button>
-                    <button class="btn btn-primary w-100">
+                    <button @click="facebookLogin" class="btn btn-primary w-100">
                         <i class="bi bi-facebook"></i> Continue with Facebook
                     </button>
                     <p class="mt-3"><router-link to="/" class="text-decoration-none "
@@ -78,7 +77,10 @@ const confirmPassword = ref("");
 
 // Kayıt işlemini gerçekleştiren fonksiyon
 
+const googleLogin = () => {
+    window.location.href = "http://localhost:3000/auth/google";
 
+}
 const handleSubmit = async () => {
     // Şifreler eşleşiyor mu kontrolü
     if (password.value !== confirmPassword.value) {

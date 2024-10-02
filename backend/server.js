@@ -4,20 +4,57 @@ const connectToDB = require("./config/db");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
+const passport = require("passport");
+const session = require("express-session");
+require("./config/passport-setup")
 dotenv.config();
 connectToDB();
 
 const app = express();
 
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
-app.use(cors({ origin: '*' })); // GELİŞTİRME ORTAMINDA BU ŞEKİLDE
+// const SESSION_SECRET = process.env.SESSION_SECRET
 
-// GERÇEK PORJEDE BU ŞEKİLDE OLMALI
-// app.use(cors({
-//     origin: "http://localhost:5173",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: false => ÇEREZ YÖNETİMİ
-// }));
+app.use(session({
+    secret: 'supersecretkey',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Google ile kaydolma yönlendirmesi
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+}));
+
+
+// Google callback yönlendirmesi
+app.get('/auth/google/callback', passport.authenticate('google', {
+    failureRedirect: '/register' // Başarısız olursa buraya yönlendir
+}), (req, res) => {
+    try {
+        res.redirect('http://localhost:5173/');
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+app.get('/auth/user', (req, res) => {
+    res.send(req.user);
+});
+
+app.get('/auth/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
 app.use(express.json());
 
 app.use("/users", userRoutes);

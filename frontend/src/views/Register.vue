@@ -94,7 +94,7 @@ const handleSubmit = async () => {
             password: password.value,
         });
         console.log("User created: ", response.data);
-        router.push('/login'); // Kayıttan sonra login sayfasına yönlendirin
+        router.push('/login'); 
     } catch (error) {
         console.error("Registration error:", error);
         console.log(error.response);
@@ -103,6 +103,7 @@ const handleSubmit = async () => {
     email.value = "";
     password.value = "";
     confirmPassword.value = "";
+
 };
 </script>
 

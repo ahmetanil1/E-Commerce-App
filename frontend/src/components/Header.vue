@@ -21,6 +21,7 @@
             <div class="d-flex ms-auto">
                 <router-link to="/login" class="btn btn-outline-secondary me-2 ">Log In</router-link>
                 <router-link to="/register" class="btn btn-outline-secondary me-2">Sign Up</router-link>
+                <!-- <router-link v-if="isLogin" to="/login" class="btn btn-outline-secondary me-2">Log Out</router-link> -->
             </div>
             <!-- Cart Icon -->
             <div class="ms-3">
@@ -32,3 +33,10 @@
         </div>
     </nav>
 </template>
+
+
+<script setup>
+import { ref } from 'vue';
+
+// const isLogin = ref(true);   
+</script>

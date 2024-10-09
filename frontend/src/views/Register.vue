@@ -75,36 +75,8 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 
-// Kayıt işlemini gerçekleştiren fonksiyon
 
-const googleLogin = () => {
-    window.location.href = "http://localhost:3000/auth/google";
-}
-const handleSubmit = async () => {
-    // Şifreler eşleşiyor mu kontrolü
-    if (password.value !== confirmPassword.value) {
-        alert("Passwords do not match!");
-        return;
-    }
-    try {
-        // Backend'e POST isteği gönderme
-        const response = await axios.post('http://localhost:3000/users/register', {
-            name: name.value,
-            email: email.value,
-            password: password.value,
-        });
-        console.log("User created: ", response.data);
-        router.push('/login'); 
-    } catch (error) {
-        console.error("Registration error:", error);
-        console.log(error.response);
-    }
-    name.value = "";
-    email.value = "";
-    password.value = "";
-    confirmPassword.value = "";
 
-};
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.schema({
+const userSchema = new mongoose.Schema({ // Düzeltme yapıldı
     name: {
         type: String,
         required: true,
@@ -16,11 +16,10 @@ const userSchema = new mongoose.schema({
         type: String,
         required: true
     },
-    timestamps: true, // OTOMATİK OLARAK CREATEAT VE UPGRADETAT EKLER,
-    isAdmin: {
+    admin: {
         type: Boolean,
         default: false
     }
-})
+});
 
-module.exports = mongoose.model("users", userSchema)
+module.exports = mongoose.model("users", userSchema);

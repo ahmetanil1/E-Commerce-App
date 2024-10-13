@@ -1,0 +1,51 @@
+# JWT HAKKINDA BİLGİ
+
+
+# => CLEİNT VE SERVER ARASI GÜVENLİ VERİ ALIŞVERİŞİ İÇİN KULLANILIR
+
+# => ÜÇ KISIMDAN OLUŞUR 1.HEADER 2.PAYLOAD 3.SİGNATURE
+
+
+# => 1.HEADER
+# =>JWT'nin türünü (örneğin, "JWT") ve kullanılan imzalama algoritmasını (örneğin, HMAC SHA256 veya RSA) içerir.
+# {
+# "alg": "HS256",
+# "typ": "JWT"
+# }
+
+# => 2.PAYLOAD 
+
+# Asıl verinin tutulduğu kısımdır. Bu bölüm, kullanıcı veya uygulamayla ilgili iddialar (claims) taşır. Bu iddialar üç kategoriye ayrılır:
+# Registered Claims: Tanımlı iddialardır (örneğin, iss - token'ı oluşturan kişi, exp - son kullanma tarihi).
+# Public Claims: Uygulamanın gereksinimine göre eklenmiş genel iddialar (örneğin, kullanıcı adı, kullanıcı rolü).
+# Private Claims: İki taraf arasında anlaşılmış özel iddialar. Örnek payload:
+
+# {
+# "sub": "1234567890",
+# "name": "John Doe",
+# "admin": true
+# }
+
+
+# => 3.SİGNATURE
+
+# Signature (İmza):
+
+# İmzalama algoritması ile header ve payload bir araya getirilerek token'ın manipüle edilip edilmediğini doğrulamak için oluşturulan bir kriptografik imzadır.
+# Örneğin, HS256 algoritması kullanıldığında imza şu şekilde oluşturulur:
+
+# HMACSHA256(
+# base64UrlEncode(header) + "." + base64UrlEncode(payload),
+# secret)
+
+
+# JWT, bu üç bölümün (header, payload, signature) Base64 URL-safe formatında kodlanmış ve nokta (.) ile birbirine bağlanmış halidir. Örnek bir JWT şu şekildedir:
+
+    
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+
+Küçük/Mid-Scale E-Ticaret Siteleri:
+Eğer tek sunucu ya da çok az sayıda sunucu kullanıyorsanız ve fazla bir trafiğiniz yoksa senkron JWT (HMAC) daha uygun olabilir. Daha hızlı ve basit olduğu için kullanıcı giriş işlemlerini rahatça halledebilirsiniz.
+Büyük-Scale ve Dağıtık E-Ticaret Siteleri:
+Eğer büyük bir kullanıcı tabanınız varsa, çok sayıda sunucu kullanıyorsanız ya da microservices mimarisi ile çalışıyorsanız asenkron JWT (RSA/ECDSA) daha iyi bir seçenek olacaktır. Daha güvenli ve ölçeklenebilir olduğundan dolayı büyük sistemlerde tercih edilir.

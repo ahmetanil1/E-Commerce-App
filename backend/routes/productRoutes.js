@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const isAdmin = require("../middlewares/isAdmin.js")
-
+const { authMiddleware, isAdmin } = require("../middlewares/authMiddlewares");
 
 const { getProducts, createProduct, deleteProduct, upgradeProduct } = require("../controllers/ProductController");
 
-router.get("/", getProducts);
-router.post("/", createProduct);
-router.delete("/:id", isAdmin, deleteProduct); // silme işlemini yalnızca yöneticilerin yapabileceğini söyler  
-router.put("/:id", upgradeProduct);
+router.get("/products", getProducts);
+router.post("/products", createProduct);
+router.delete("/products/:id", deleteProduct); // silme işlemini yalnızca yöneticilerin yapabileceğini söyler  
+router.put("/products/:id", upgradeProduct);
+router.get("/profile", authMiddleware, (req, res) => {
+    res.json({ message: "User is authenticated", user: req.user })
+})
 
 
 module.exports = router;

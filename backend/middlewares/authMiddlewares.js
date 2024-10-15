@@ -14,13 +14,12 @@ const authMiddleware = async (req, res, next) => {
 
         if (req.body.userID !== userID) {
             console.log("Invalid User ID");
-            return res.status(403).json({ message: "Forbidden" })
+            return res.status(res.statusCode).json({ message: "Forbidden" })
         } else {
             next();
         }
     } catch (error) {
-        return res.status(401).json({ message: "Invalid request" })
-
+        return res.status(error.statusCode).json({ message: "Invalid request" })
     }
 }
 

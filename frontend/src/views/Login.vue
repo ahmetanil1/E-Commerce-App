@@ -39,19 +39,20 @@
                     <button type="submit" class="btn btn-warning w-100">Login</button>
                 </div>
 
-                <!-- Alternate Log In -->
-                <div class="alternate-log-in d-flex flex-column align-items-center">
-                    <button class="btn btn-danger w-100 mb-2">
-                        <i class="bi bi-google"></i> Continue with Google
-                    </button>
-                    <button class="btn btn-primary w-100">
-                        <i class="bi bi-facebook"></i> Continue with Facebook
-                    </button>
-
-                    <p class="mt-3"><router-link to="/" class="text-decoration-none "
-                            style="color: #000000 ;"><strong>Click</strong></router-link> to continue without login</p>
-                </div>
             </form>
+            <!-- Alternate Log In -->
+            <div class="alternate-log-in d-flex flex-column align-items-center">
+                <button class="btn btn-danger w-100 mb-2">
+                    <i class="bi bi-google"></i> Continue with Google
+                </button>
+                <button class="btn btn-primary w-100">
+                    <i class="bi bi-facebook"></i> Continue with Facebook
+                </button>
+
+                <p class="mt-3"><router-link to="/" class="text-decoration-none "
+                        style="color: #000000 ;"><strong>Click</strong></router-link> to continue without login</p>
+            </div>
+
         </div>
     </div>
 </template>

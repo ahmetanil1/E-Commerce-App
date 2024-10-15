@@ -15,15 +15,15 @@ const getProducts = async (req, res) => {
 }
 
 const createProduct = async (req, res) => {
-    const { title, price, description, category, images, inStock } = req.body;
+    const { title, price, description, category, inStock } = req.body;
 
     if (!title || !price || !description || !category || !images || !inStock) {
         return res.json({ message: "Have to fill all gaps for product" })
     }
-    if (!req.user || !req.user.isAdmin) {
-        return res.json({ message: "Just admin can create a new product " })
-        // req.user BİLGİSİ İÇİN ÖNCE MİDDLWARE İÇERİİSNDE ADMİN İŞLEMKERİ YAPILMALI 
-    }
+    // if (!req.user || !req.user.isAdmin) {
+    //     return res.json({ message: "Just admin can create a new product " })
+    //     // req.user BİLGİSİ İÇİN ÖNCE MİDDLWARE İÇERİİSNDE ADMİN İŞLEMKERİ YAPILMALI 
+    // }
     try {
         const existingProduct = await Product.findOne({ title });
         if (existingProduct) {
@@ -33,11 +33,7 @@ const createProduct = async (req, res) => {
             title: title,
             price: price,
             description: description,
-            category: {
-                id: category.id,
-                name: category.name,
-                image: category.name
-            },
+            category: category,
             images: images,
             inStock: inStock
         })

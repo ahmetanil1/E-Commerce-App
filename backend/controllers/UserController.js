@@ -40,8 +40,9 @@ const createUser = async (req, res) => {
         res.status(201).json({ message: "created a new user" && newUser });
         console.log('newUser :>> ', newUser);
     } catch (error) {
-        res.json({ message: "Did not create new user" })
-        console.log('error :>> ', error.message);
+        res.status(res.statusCode).json({ message: "Did not create new user" })
+        console.log('error :>> ', error);
+        return;
     }
 }
 

@@ -17,47 +17,46 @@
                 <!-- Name Input -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" id="name" placeholder="Your Name" v-model="name" class="form-control">
+                    <input type="text" id="name" placeholder="Your Name" v-model="name" class="form-control" required>
                 </div>
 
                 <!-- Email Input -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" placeholder="you@example.com" v-model="email" class="form-control">
+                    <input type="email" id="email" placeholder="you@example.com" v-model="email" class="form-control"
+                        required>
                 </div>
 
                 <!-- Password Input -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" id="password" v-model="password" placeholder="**********"
-                        class="form-control">
+                        class="form-control" required>
                 </div>
 
                 <!-- Confirm Password Input -->
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
                     <input type="password" id="confirmPassword" v-model="confirmPassword" placeholder="**********"
-                        class="form-control">
+                        class="form-control" required>
                 </div>
 
                 <!-- Register Button -->
                 <div class="mb-3">
                     <button type="submit" class="btn btn-warning w-100">Register</button>
                 </div>
-
-                <!-- Alternate Log In -->
-                <div class="alternate-log-in d-flex flex-column align-items-center">
-                    <button @click="googleLogin" class="btn btn-danger w-100 mb-2">
-                        <i class="bi bi-google"></i> Continue with Google
-                    </button>
-                    <button @click="facebookLogin" class="btn btn-primary w-100">
-                        <i class="bi bi-facebook"></i> Continue with Facebook
-                    </button>
-                    <p class="mt-3"><router-link to="/" class="text-decoration-none "
-                            style="color: #000000 ;"><strong>Click</strong></router-link> to continue without register
-                    </p>
-                </div>
             </form>
+            <div class="alternate-log-in d-flex flex-column align-items-center">
+                <button @click="googleRegister" class="btn btn-danger w-100 mb-2">
+                    <i class="bi bi-google"></i> Continue with Google
+                </button>
+                <button @click="facebookRegister" class="btn btn-primary w-100">
+                    <i class="bi bi-facebook"></i> Continue with Facebook
+                </button>
+                <p class="mt-3"><router-link to="/" class="text-decoration-none "
+                        style="color: #000000 ;"><strong>Click</strong></router-link> to continue without register
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -75,7 +74,37 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 
+const handleSubmit = async () => {
 
+
+    if (password.value !== confirmPassword.value) {
+        console.log("Passwords did not match!");
+        return;
+    }
+    try {
+        const response = await axios.post("http://localhost:3000/users/register", {
+            name: name.value,
+            email: email.value,
+            password: password.value
+        })
+        router.push("/login")
+        message.value("Registration Successfully");
+        console.log('response :>> ', response.data);
+    } catch (err) {
+        console.log('err :>> ', err);
+    }
+    resetForm();
+}
+const googleRegister = () => {
+
+}
+
+const resetForm = () => {
+    name.value = "";
+    email.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+}
 
 </script>
 
